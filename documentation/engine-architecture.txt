@@ -1,0 +1,96 @@
+Overall notes:
+- Entity removal and creation MUST happen in between physics steps!
+  - Physics steps may be run several times with a fixed timestep to keep up
+    with the rendering framerate so make sure all collision resolutions
+    are okay with that
+
+The important high-level data structures in the game will be the Scene and the
+Game.
+
+- Game is responsible for maintaining a queue of scenes and updating the logic
+  of each scene
+- Manages timestep for the scene
+- Each frame, updates current scene using dt:
+  - Scene.update(dt)
+- Current scene can be changed from within the scene itself - the game will
+  store a reference to the current scene at the start of each update phase,
+  allowing actions within the scene to queue new scenes or change the current
+  one at will.
+
+- Scene is responsible for:
+  - Updating itself
+    - In the normal 'level' scenes, done as follows:
+      - updateInput()
+      - updateBehaviours()
+      - updatePhysics(dt)
+      - updateAnimations()
+      - updateEntities()
+      - render()
+    - Different scenes (cutscenes, menus, etc) can manage this how they see fit
+  - Maintaining a camera
+
+Major subsystems:
+
+- Physics/collision
+- Animation
+- Sound
+- Input
+- Behaviours
+- Rendering
+
+Methods of communication:
+
+- Entity objects
+  - Position, velocity
+  - Animation
+  - Behaviour
+
+- Physics/collision:
+  - Handled by box2d
+  - Physics layer steps box2d with fixed timestep
+  - Collision listeners use visitor pattern (sort of) to polymorphically
+    call accept_collision
+    - See sandbox!
+
+- Animation
+  - Frame-by-frame animation
+  - Interface implemented by different types of animations
+    - StaticAnimation
+    - LoopingAnimation
+    - OscillatingAnimation
+    - etc...
+  - Interface methods:
+    - play()
+    - pause()
+    - start()
+    - restart()
+    - currentFrame()
+
+- Sound
+  - Hopefully handled gracefully by SDL!
+  - Interface methods:
+    - playMusic()
+    - playSoundEffect()
+    - pauseMusic()
+
+- Input
+  - Input controllers update system-agnostic flags in a PlayerInput class
+
+- Behaviours
+  - Behaviours use data from other components to control the entity
+  - Set of behaviours controls an entity by priority
+    - Highest priority possible behaviour will be executed each frame
+  - Interface:
+    - int priority
+    - bool possible()
+    - void execute()
+  - Behaviours control components with:
+    - Physics: velocity (no direct position management if possible)
+    - Animation, sound: interface methods
+    - Rendering: no communication, renderer gets current image from animation
+    - Input: reading flags
+
+- Rendering
+  - Renderer uses list of images, camera to paint
+  - Interface methods:
+    - void render(list<Image> images, Camera camera)
