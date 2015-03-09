@@ -18,6 +18,7 @@
  */
 
 #include "PlatformImage.h"
+#include "PlatformInput.h"
 #include "PlatformRenderer.h"
 #include "PlatformTimer.h"
 

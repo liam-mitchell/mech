@@ -1,0 +1,74 @@
+Standard playable level scenes will update themselves in the following manner:
+
+- updateInput()
+  - Must update an input structure that's accessible to anyone who needs it
+
+- updateBehaviours(dt)
+  - Must be able to update:
+    - Entity movement
+    - Entity animation(s)
+    - Entity creation
+    - Entity behaviours (creation, deletion)
+    - Sounds
+  - Must be able to access:
+    - Entity box2d classes
+    - Entity detection (via box2d?)
+
+- updatePhysics(dt)
+  - Must be able to update:
+    - Entity box2d classes
+    - Entity collision responses
+  - Must be able to access:
+    - Entity box2d classes
+
+- updateAnimations(dt)
+  - Must be able to update:
+    - Entity animation positions
+  - Must be able to access:
+    - Entity component positions
+
+- updateEntities()
+  - Must be able to access:
+    - Entity list
+
+- render()
+  - Retrieve a list of RenderData from scene entities
+    - RenderData: image, world position
+  - Cull RenderData with camera
+  - Convert world coordinates to screen coordinates and blit
+
+The Entity structure must contain the following data:
+  - RenderData
+  - Behaviours
+  - Animations
+  - active flag
+
+  - Functions to be called outside box2d steps
+    - create()
+    - destroy()
+    - Creating and destroying entities involves placing the new/old
+      entity on a list, then in updateEntities() create() and destroy()
+      are called before placing them on/removing them from the list
+
+They will use the following data structures:
+
+- An entity list
+- A renderer
+- A camera
+- An input manager
+
+The methods will communicate data to each other as follows:
+
+- updateInput()
+  - Relies on platform-specific input managers to buffer messages for other
+    game systems
+    - input.jumping(), input.leftArm(), input.rightArm(), etc...
+  - Requires no input
+
+- updateBehaviours()
+  - 
+
+- updatePhysics(dt)
+  - Uses dt to step all physics objects in the scene, then interpolate them
+    based on remaining fraction of dt
+  - Any entity 

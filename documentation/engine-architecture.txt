@@ -21,9 +21,9 @@ Game.
   - Updating itself
     - In the normal 'level' scenes, done as follows:
       - updateInput()
-      - updateBehaviours()
+      - updateBehaviours(dt)
       - updatePhysics(dt)
-      - updateAnimations()
+      - updateAnimations(dt)
       - updateEntities()
       - render()
     - Different scenes (cutscenes, menus, etc) can manage this how they see fit
@@ -39,6 +39,11 @@ Major subsystems:
 - Rendering
 
 Methods of communication:
+
+- Scenes can manage themselves however they like
+- Requirements:
+  - Must be able to pass a list of images to the renderer
+    - Images must have a rectangle
 
 - Entity objects
   - Position, velocity

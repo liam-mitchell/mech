@@ -5,6 +5,8 @@
 
 #include "PlatformImage.h"
 
+#include "../scenes/RenderData.h"
+
 /**
  * Platform-agnostic rendering engine
  *
@@ -32,7 +34,7 @@ namespace Platform
          *  method as Renderer.draw(*this), so as to call the correct draw()
          *  function on the renderer.
          */
-        void render(const std::list<Image> &images, const Camera &camera) const;
+        void render(const std::list<Platform::Image> &images, const Camera &camera) const;
 
         /**
          * Visitee callbacks

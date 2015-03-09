@@ -17,7 +17,7 @@ namespace Platform
     }
 
     void
-    Renderer::render(const std::list<Image> &images, const Camera &camera) const
+    Renderer::render(const std::list<Platform::Image> &images, const Camera &camera) const
     {
         for (auto & image : images) {
             image.draw(*this, camera);

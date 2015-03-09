@@ -1,5 +1,7 @@
 #include "Level.h"
 
+#include "../platform/Platform.h"
+
 #include <iostream>
 
 /**
@@ -16,7 +18,10 @@ Level::Level() : renderer(0, 0)
  */
 void Level::update(unsigned int dt)
 {
-    std::cout << "Tick: " << dt << std::endl;
+    updateInput();
+    updateBehaviours(dt);
+    updatePhysics(dt);
+    updateEntities();
 }
 
 /**
@@ -25,10 +30,56 @@ void Level::update(unsigned int dt)
  */
 void Level::render()
 {
-    Platform::Image image;
     std::list<Platform::Image> images;
 
-    images.push_back(std::move(image));
+    for (auto &e: active) {
+        images.splice(images.end(), e->getImages());
+    }
 
     renderer.render(images, camera);
+}
+
+
+void Level::addEntity(std::shared_ptr<Entity> e)
+{
+    born.push_back(e);
+}
+
+void Level::removeEntity(std::shared_ptr<Entity> e)
+{
+    active.remove(e);
+    dead.push_back(e);
+}
+
+void Level::updateEntities()
+{
+    for (auto &e: born) {
+        e->create();
+        active.push_back(e);
+    }
+
+    born.clear();
+
+    for (auto &e: dead) {
+        e->destroy();
+    }
+
+    dead.clear();
+}
+
+void Level::updateBehaviours(unsigned int dt)
+{
+    for (auto &e: active) {
+        e->updateBehaviours(*this, dt);
+    }
+}
+
+void Level::updatePhysics(unsigned int dt)
+{
+    // TODO
+}
+
+void Level::updateInput()
+{
+    input.update();
 }
