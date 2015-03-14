@@ -17,34 +17,31 @@
 
 class SDLImage;
 
-namespace Platform
+class Renderer
 {
-    class Renderer
-    {
-    protected:
-        static const std::string WINDOW_TITLE;
+protected:
+    static const std::string WINDOW_TITLE;
 
-    public:
+public:
 
-        /**
-         * Render a list of images, first culling those not visible to the camera
-         *
-         * Dispatches images to the correct draw image via calling the
-         *  draw(Renderer) method on the image - each image must implement that
-         *  method as Renderer.draw(*this), so as to call the correct draw()
-         *  function on the renderer.
-         */
-        void render(std::list<std::shared_ptr<Platform::Image>> &images,
-                    const Camera &camera)
-            const;
+    /**
+     * Render a list of images, first culling those not visible to the camera
+     *
+     * Dispatches images to the correct draw image via calling the
+     *  draw(Renderer) method on the image - each image must implement that
+     *  method as Renderer.draw(*this), so as to call the correct draw()
+     *  function on the renderer.
+     */
+    void render(std::list<std::shared_ptr<Image>> &images,
+                const Camera &camera)
+        const;
 
-        /**
-         * Visitee callbacks
-         */
-        virtual
-        void draw(const SDLImage &image, const Camera &camera)
-            const = 0;
-    };
-}
+    /**
+     * Visitee callbacks
+     */
+    virtual
+    void draw(const SDLImage &image, const Camera &camera)
+        const = 0;
+};
 
 #endif // __PLATFORM_RENDERER_H_

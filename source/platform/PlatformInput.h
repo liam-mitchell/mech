@@ -3,15 +3,12 @@
 
 #include <memory>
 
-namespace Platform
+class Input
 {
-    class Input
-    {
-    public:
-        virtual void update() = 0;
+public:
+    virtual void update() = 0;
 
-        virtual bool jumping() const = 0;
-    };
-}
+    virtual bool jumping() const = 0;
+};
 
 #endif // __PLATFORM_INPUT_H_

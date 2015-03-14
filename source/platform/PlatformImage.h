@@ -13,22 +13,18 @@
  */
 
 class Camera;
-
-namespace Platform
-{
-    class Renderer;
+class Renderer;
     
-    class Image
-    {
-    public:
-        virtual void draw(const Renderer &renderer, const Camera &camera)
-            const = 0;
-        virtual void resize(const Camera &camera) = 0;
+class Image
+{
+public:
+    virtual void draw(const Renderer &renderer, const Camera &camera)
+        const = 0;
+    virtual void resize(const Camera &camera) = 0;
 
-    public:
-        Vec2 position;
-        Vec2 size;
-    };
-}
+public:
+    Vec2 position;
+    Vec2 size;
+};
 
 #endif // __PLATFORM_IMAGE_H_

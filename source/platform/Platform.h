@@ -24,38 +24,26 @@
 
 #include <memory>
 
-namespace Platform
-{
-    /**
-     * Platform-independent timer interface
-     * 
-     * Provides a simple interface - tick() will return the time since the last
-     *  time tick() was called (or time since initialization, in case of the
-     *  first tick() call on a particular timer).
-     */
+/**
+ * Platform-independent timer interface
+ * 
+ * Provides a simple interface - tick() will return the time since the last
+ *  time tick() was called (or time since initialization, in case of the
+ *  first tick() call on a particular timer).
+ */
 
-    // Supported platforms
-    enum PlatformType {
-        WINDOWS,
-        LINUX,
-        MAC,
-    };
+/**
+ * Call platform-specific setup functions
+ */
+bool initializePlatform();
 
-    extern PlatformType platform;
-
-    /**
-     * Call platform-specific setup functions
-     */
-    bool initializePlatform();
-
-    /**
-     * Platform-agnostic allocations
-     */
-    std::shared_ptr<Timer> getTimer();
-    std::shared_ptr<Renderer> getRenderer(unsigned int width,
-                                          unsigned int height);
-    std::shared_ptr<Input> getInput();
-    std::shared_ptr<Image> getImage(const std::string &path);
-}
+/**
+ * Platform-agnostic allocations
+ */
+std::shared_ptr<Timer> getTimer();
+std::shared_ptr<Renderer> getRenderer(unsigned int width,
+                                      unsigned int height);
+std::shared_ptr<Input> getInput();
+std::shared_ptr<Image> getImage(const std::string &path);
 
 #endif // __PLATFORM_H_

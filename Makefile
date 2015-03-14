@@ -17,7 +17,7 @@ RELEASE_OBJECTS := $(addprefix $(RELEASE_OBJECT_DIR)/, $(notdir $(SOURCES:.cpp=.
 DEBUG_OBJECTS := $(addprefix $(DEBUG_OBJECT_DIR)/, $(notdir $(SOURCES:.cpp=.o)))
 
 CXX := g++
-CXXFLAGS := -std=c++11 -Wall -Werror -I $(INCLUDE_DIR)
+CXXFLAGS := -std=c++11 -Wall -Werror -I $(INCLUDE_DIR) -DPLATFORM_LINUX
 LDFLAGS := -L $(LIBRARY_DIR) $(LIBRARIES)
 
 VPATH := $(shell find $(SOURCE_DIR) -type d)

@@ -11,19 +11,16 @@
  * Like most platform-agnostic intefaces, maintains a unique_ptr to the correct
  *  interface implementation based on the platform chosen by Platform::platform.
  */
-namespace Platform
+class Timer
 {
-    class Timer
-    {
-    public:
+public:
 
-        /**
-         * Returns the time in milliseconds since the last tick() call (or since
-         *  construction, in the case of the first tick() call on a particular
-         *  timer).
-         */
-        virtual unsigned int tick() = 0;
-    };
-}
+    /**
+     * Returns the time in milliseconds since the last tick() call (or since
+     *  construction, in the case of the first tick() call on a particular
+     *  timer).
+     */
+    virtual unsigned int tick() = 0;
+};
 
 #endif // __PLATFORM_TIMER_H_

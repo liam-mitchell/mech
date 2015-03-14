@@ -8,7 +8,7 @@
 class Camera
 {
 public:
-    void cull(std::list<std::shared_ptr<Platform::Image>> &images) const;
+    void cull(std::list<std::shared_ptr<Image>> &images) const;
 };
 
 #endif // __CAMERA_H_
