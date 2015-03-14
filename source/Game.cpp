@@ -28,7 +28,7 @@ void Game::endScene()
 
 void Game::run()
 {
-    std::shared_ptr<Timer> timer = getTimer();
+    std::shared_ptr<Timer> timer = Platform::createTimer();
 
     while (!scenes.empty()) {
         int dt = timer->tick();

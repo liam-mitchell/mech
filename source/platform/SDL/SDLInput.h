@@ -3,7 +3,7 @@
 
 #include "../Platform.h"
 
-class SDLInput : public Platform::Input
+class SDLInput : public Input
 {
 public:
     virtual void update();

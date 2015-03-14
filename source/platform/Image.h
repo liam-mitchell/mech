@@ -8,7 +8,7 @@
 /**
  * Platform-agnostic image class
  *
- * Implements the visitee side of the visitor pattern for Platform::Renderer.
+ * Implements the visitee side of the visitor pattern for Renderer.
  *  See PlatformRenderer.h for details.
  */
 

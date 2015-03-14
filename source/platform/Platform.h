@@ -17,33 +17,27 @@
  *  functions! Everyone else should go through this.
  */
 
-#include "PlatformImage.h"
-#include "PlatformInput.h"
-#include "PlatformRenderer.h"
-#include "PlatformTimer.h"
+#include "Image.h"
+#include "Input.h"
+#include "Renderer.h"
+#include "Timer.h"
 
 #include <memory>
 
-/**
- * Platform-independent timer interface
- * 
- * Provides a simple interface - tick() will return the time since the last
- *  time tick() was called (or time since initialization, in case of the
- *  first tick() call on a particular timer).
- */
+namespace Platform {
+    /**
+     * Call platform-specific setup functions
+     */
+    bool initializePlatform();
 
-/**
- * Call platform-specific setup functions
- */
-bool initializePlatform();
-
-/**
- * Platform-agnostic allocations
- */
-std::shared_ptr<Timer> getTimer();
-std::shared_ptr<Renderer> getRenderer(unsigned int width,
-                                      unsigned int height);
-std::shared_ptr<Input> getInput();
-std::shared_ptr<Image> getImage(const std::string &path);
+    /**
+     * Platform-agnostic allocations
+     */
+    std::shared_ptr<Timer> createTimer();
+    std::shared_ptr<Renderer> createRenderer(unsigned int width,
+                                          unsigned int height);
+    std::shared_ptr<Input> createInput();
+    std::shared_ptr<Image> createImage(const std::string &path);
+}
 
 #endif // __PLATFORM_H_

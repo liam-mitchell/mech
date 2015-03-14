@@ -11,8 +11,7 @@ int main() {
         return 1;
     }
 
-    std::shared_ptr<Platform::Image> background
-        = Platform::getImage("../assets/test-backgrond.png");
+    std::shared_ptr<Image> background = Platform::createImage("../assets/test-background.png");
     
     // The game should probably just take ownership of a raw scene pointer...
     std::unique_ptr<Scene> scene(new Level(background));

@@ -16,7 +16,7 @@ public:
     virtual void create() = 0;
     virtual void destroy() = 0;
 
-    virtual std::list<std::shared_ptr<Platform::Image>> getImages() = 0;
+    virtual std::list<std::shared_ptr<Image>> getImages() = 0;
 
     virtual void updateBehaviours(Level &level, unsigned int dt);
 private:

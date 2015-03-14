@@ -18,7 +18,7 @@
  */
 class Level : public Scene {
 public:
-    Level(std::shared_ptr<Platform::Image> background);
+    Level(std::shared_ptr<Image> background);
 
     void update(unsigned int dt);
     void render();
@@ -33,10 +33,10 @@ private:
     void updateEntities();
 
 private:
-    std::shared_ptr<Platform::Input> input;
-    std::shared_ptr<Platform::Renderer> renderer;
+    std::shared_ptr<Input> input;
+    std::shared_ptr<Renderer> renderer;
 
-    std::shared_ptr<Platform::Image> background;
+    std::shared_ptr<Image> background;
     
     std::list<std::shared_ptr<Entity>> born;
     std::list<std::shared_ptr<Entity>> active;

@@ -3,7 +3,7 @@
 
 #include <list>
 
-#include "PlatformImage.h"
+#include "Image.h"
 
 /**
  * Platform-agnostic rendering engine

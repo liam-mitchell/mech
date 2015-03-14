@@ -7,9 +7,9 @@
 /**
  * Implements Level.h
  */
-Level::Level(std::shared_ptr<Platform::Image> background)
-    : input(Platform::getInput())
-    , renderer(Platform::getRenderer(1020, 780))
+Level::Level(std::shared_ptr<Image> background)
+    : input(Platform::createInput())
+    , renderer(Platform::createRenderer(1020, 780))
     , camera()
 {
     
@@ -32,7 +32,7 @@ void Level::update(unsigned int dt)
  */
 void Level::render()
 {
-    std::list<std::shared_ptr<Platform::Image>> images;
+    std::list<std::shared_ptr<Image>> images;
 
     for (auto &e: active) {
         images.splice(images.end(), e->getImages());

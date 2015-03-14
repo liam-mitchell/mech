@@ -12,11 +12,11 @@ public:
     void destroy()
     { std::cout << "Destroyed test entity!\n"; }
 
-    std::list<std::shared_ptr<Platform::Image>> getImages()
+    std::list<std::shared_ptr<Image>> getImages()
     { std::cout << "Got test entity images!\n"; };
 
 private:
-    std::shared_ptr<Platform::Image> image;
+    std::shared_ptr<Image> image;
     Rect area;
 };
 
