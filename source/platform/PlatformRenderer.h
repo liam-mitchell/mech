@@ -5,8 +5,6 @@
 
 #include "PlatformImage.h"
 
-#include "../scenes/RenderData.h"
-
 /**
  * Platform-agnostic rendering engine
  *
@@ -23,8 +21,10 @@ namespace Platform
 {
     class Renderer
     {
+    protected:
+        static const std::string WINDOW_TITLE;
+
     public:
-        Renderer(unsigned int width, unsigned int height);
 
         /**
          * Render a list of images, first culling those not visible to the camera
@@ -34,28 +34,16 @@ namespace Platform
          *  method as Renderer.draw(*this), so as to call the correct draw()
          *  function on the renderer.
          */
-        void render(const std::list<Platform::Image> &images, const Camera &camera) const;
+        void render(std::list<std::shared_ptr<Platform::Image>> &images,
+                    const Camera &camera)
+            const;
 
         /**
          * Visitee callbacks
          */
-        void draw(const SDLImage &image, const Camera &camera) const;
-
-        /**
-         * Implementation to be overridden by platform-specific interfaces
-         *
-         * Specific implementations should only override their own draw()
-         *  method - all others should throw an exception.
-         */
-        class Implementation
-        {
-        public:
-            virtual
-            void draw(const SDLImage &image, const Camera &camera) const = 0;
-        };
-
-    private:
-        std::unique_ptr<Implementation> impl;
+        virtual
+        void draw(const SDLImage &image, const Camera &camera)
+            const = 0;
     };
 }
 

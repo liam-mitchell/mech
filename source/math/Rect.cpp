@@ -7,7 +7,7 @@ Rect::Rect()
     , height(0)
 {}
 
-Rect::Rect(int x, int y, int width, int height)
+Rect::Rect(float x, float y, float width, float height)
     : x(x)
     , y(y)
     , width(width)

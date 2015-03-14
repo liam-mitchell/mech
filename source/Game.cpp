@@ -28,10 +28,10 @@ void Game::endScene()
 
 void Game::run()
 {
-    Platform::Timer timer;
+    std::shared_ptr<Platform::Timer> timer = Platform::getTimer();
 
     while (!scenes.empty()) {
-        int dt = timer.tick();
+        int dt = timer->tick();
 
         // Take a reference to the front of the scene queue since
         // scene->update() might put a new scene onto the queue

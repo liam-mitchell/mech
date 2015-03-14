@@ -7,10 +7,12 @@
 /**
  * Implements Level.h
  */
-Level::Level() : renderer(0, 0)
-               , camera()
+Level::Level(std::shared_ptr<Platform::Image> background)
+    : input(Platform::getInput())
+    , renderer(Platform::getRenderer(1020, 780))
+    , camera()
 {
-
+    
 }
 
 /**
@@ -30,13 +32,13 @@ void Level::update(unsigned int dt)
  */
 void Level::render()
 {
-    std::list<Platform::Image> images;
+    std::list<std::shared_ptr<Platform::Image>> images;
 
     for (auto &e: active) {
         images.splice(images.end(), e->getImages());
     }
 
-    renderer.render(images, camera);
+    renderer->render(images, camera);
 }
 
 
@@ -81,5 +83,5 @@ void Level::updatePhysics(unsigned int dt)
 
 void Level::updateInput()
 {
-    input.update();
+    input->update();
 }

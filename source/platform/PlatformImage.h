@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "../math/Vec2.h"
+
 /**
  * Platform-agnostic image class
  *
@@ -19,18 +21,13 @@ namespace Platform
     class Image
     {
     public:
-        Image();
-        void draw(const Renderer &renderer, const Camera &camera) const;
+        virtual void draw(const Renderer &renderer, const Camera &camera)
+            const = 0;
+        virtual void resize(const Camera &camera) = 0;
 
-        class Implementation
-        {
-        public:
-            virtual
-            void draw(const Renderer &renderer, const Camera &camera) const = 0;
-        };
-
-    private:
-        std::unique_ptr<Implementation> impl;
+    public:
+        Vec2 position;
+        Vec2 size;
     };
 }
 

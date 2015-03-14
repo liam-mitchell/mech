@@ -3,11 +3,12 @@
 
 #include "../Platform.h"
 
-class SDLImage : public Platform::Image::Implementation
+class SDLImage : public Platform::Image
 {
 public:
-    SDLImage();
-    void draw(const Platform::Renderer &renderer, const Camera &camera) const;
+    SDLImage(const std::string &path);
+    virtual void draw(const Platform::Renderer &renderer, const Camera &camera) const;
+    virtual void resize(const Camera &camera);
 };
 
 #endif // __SDL_IMAGE_H_

@@ -3,29 +3,25 @@
 #include "Platform.h"
 
 #include "SDL/SDLRenderer.h"
+#include "../Camera.h"
 
 namespace Platform
 {
-    Renderer::Renderer(unsigned int width, unsigned int height)
-    {
-        if (platform == LINUX) {
-            impl.reset(new SDLRenderer(width, height));
-        }
-        else {
-            throw "Platform unsupported!";
-        }
-    }
-
     void
-    Renderer::render(const std::list<Platform::Image> &images, const Camera &camera) const
+    Renderer::render(std::list<std::shared_ptr<Platform::Image>> &images,
+                     const Camera &camera)
+        const
     {
-        for (auto & image : images) {
-            image.draw(*this, camera);
+        camera.cull(images);
+
+        for (auto &image : images) {
+            image->resize(camera);
+            image->draw(*this, camera);
         }
     }
 
     void Renderer::draw(const SDLImage &image, const Camera &camera) const
     {
-        impl->draw(image, camera);
+
     }
 }

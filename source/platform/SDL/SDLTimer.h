@@ -8,7 +8,7 @@
  *
  * See Platform.h for details
  */
-class SDLTimer : public Platform::Timer::Implementation
+class SDLTimer : public Platform::Timer
 {
 public:
     SDLTimer();

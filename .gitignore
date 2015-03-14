@@ -2,3 +2,7 @@ binaries/
 objects/
 *~
 *#
+TAGS
+assets/
+.filecache
+.openfilecache

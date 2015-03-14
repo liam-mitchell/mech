@@ -22,24 +22,29 @@ LDFLAGS := -L $(LIBRARY_DIR) $(LIBRARIES)
 
 VPATH := $(shell find $(SOURCE_DIR) -type d)
 
-.PHONY: default debug release clean
+TAGS := $(SOURCE_DIR)/TAGS
+
+.PHONY: default debug release clean tags
 
 default: release
 
 clean:
 	rm -rf $(OBJECT_DIR)
 	rm -rf $(BINARY_DIR)
+	rm -rf $(TAGS)
 
 debug: CXXFLAGS += -g
 debug: dirs $(DEBUG_BINARY)
 
-release: CXXFLAGS += -O2
+release: CXXFLAGS += -O2 -DNDEBUG
 release: dirs $(RELEASE_BINARY)
 
 dirs:
 	mkdir -p $(DEBUG_OBJECT_DIR)
 	mkdir -p $(RELEASE_OBJECT_DIR)
 	mkdir -p $(BINARY_DIR)
+
+tags: $(TAGS)
 
 $(RELEASE_BINARY): $(RELEASE_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
@@ -52,3 +57,6 @@ $(RELEASE_OBJECT_DIR)/%.o: %.cpp
 
 $(DEBUG_OBJECT_DIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(TAGS):
+	find $(SOURCE_DIR) -name "*.cpp" -o -name "*.h" | etags -o $(ROOT_DIR)/TAGS -

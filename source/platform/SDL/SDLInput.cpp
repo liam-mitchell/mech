@@ -5,7 +5,8 @@ void SDLInput::update()
     // TODO
 }
 
-bool SDLInput::jumping()
+bool SDLInput::jumping() const
 {
+    // TODO
     return false;
 }

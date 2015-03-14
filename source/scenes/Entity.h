@@ -2,7 +2,8 @@
 #define __ENTITY_H_
 
 #include "Behaviour.h"
-#include "RenderData.h"
+
+#include "../platform/Platform.h"
 
 #include <list>
 #include <memory>
@@ -15,7 +16,7 @@ public:
     virtual void create() = 0;
     virtual void destroy() = 0;
 
-    virtual std::list<Platform::Image> getImages() = 0;
+    virtual std::list<std::shared_ptr<Platform::Image>> getImages() = 0;
 
     virtual void updateBehaviours(Level &level, unsigned int dt);
 private:

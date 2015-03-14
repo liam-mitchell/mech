@@ -16,26 +16,13 @@ namespace Platform
     class Timer
     {
     public:
-        Timer();
 
         /**
          * Returns the time in milliseconds since the last tick() call (or since
          *  construction, in the case of the first tick() call on a particular
          *  timer).
          */
-        unsigned int tick();
-
-        /**
-         * Implementation to be overriden by platform-specific interfaces
-         */
-        class Implementation
-        {
-        public:
-            virtual unsigned int tick() = 0;
-        };
-
-    private:
-        std::unique_ptr<Implementation> impl;
+        virtual unsigned int tick() = 0;
     };
 }
 

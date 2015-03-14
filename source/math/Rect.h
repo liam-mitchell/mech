@@ -4,13 +4,13 @@
 class Rect {
 public:
     Rect();
-    Rect(int x, int y, int width, int height);
+    Rect(float x, float y, float width, float height);
 
 public:
-    int x;
-    int y;
-    int width;
-    int height;
+    float x;
+    float y;
+    float width;
+    float height;
 };
 
 #endif // __RECT_H_

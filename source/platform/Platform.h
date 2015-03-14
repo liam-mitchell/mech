@@ -22,6 +22,8 @@
 #include "PlatformRenderer.h"
 #include "PlatformTimer.h"
 
+#include <memory>
+
 namespace Platform
 {
     /**
@@ -45,6 +47,15 @@ namespace Platform
      * Call platform-specific setup functions
      */
     bool initializePlatform();
+
+    /**
+     * Platform-agnostic allocations
+     */
+    std::shared_ptr<Timer> getTimer();
+    std::shared_ptr<Renderer> getRenderer(unsigned int width,
+                                          unsigned int height);
+    std::shared_ptr<Input> getInput();
+    std::shared_ptr<Image> getImage(const std::string &path);
 }
 
 #endif // __PLATFORM_H_

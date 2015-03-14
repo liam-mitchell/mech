@@ -8,21 +8,9 @@ namespace Platform
     class Input
     {
     public:
-        Input();
+        virtual void update() = 0;
 
-        void update();
-
-        bool jumping();
-
-        class Implementation
-        {
-        public:
-            virtual void update() = 0;
-            virtual bool jumping() = 0;
-        };
-
-    private:
-        std::unique_ptr<Implementation> impl;
+        virtual bool jumping() const = 0;
     };
 }
 
