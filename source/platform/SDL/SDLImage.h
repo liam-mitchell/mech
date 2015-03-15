@@ -7,8 +7,7 @@ class SDLImage : public Image
 {
 public:
     SDLImage(const std::string &path);
-    virtual void draw(const Renderer &renderer, const Camera &camera) const;
-    virtual void resize(const Camera &camera);
+    virtual void draw(const Renderer &renderer) const;
 };
 
 #endif // __SDL_IMAGE_H_

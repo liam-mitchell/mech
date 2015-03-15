@@ -18,9 +18,7 @@ class Renderer;
 class Image
 {
 public:
-    virtual void draw(const Renderer &renderer, const Camera &camera)
-        const = 0;
-    virtual void resize(const Camera &camera) = 0;
+    virtual void draw(const Renderer &renderer) const = 0;
 
 public:
     Vec2 position;

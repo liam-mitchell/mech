@@ -9,6 +9,7 @@ class Camera
 {
 public:
     void cull(std::list<std::shared_ptr<Image>> &images) const;
+    void convertCoordinates(std::list<std::shared_ptr<Image>> &images) const;
 };
 
 #endif // __CAMERA_H_

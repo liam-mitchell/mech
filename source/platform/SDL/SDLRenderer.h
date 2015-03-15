@@ -23,7 +23,7 @@ public:
      *
      * MUST be implemented for each new type of Image!
      */
-    void draw(const SDLImage &image, const Camera &camera) const;
+    void draw(const SDLImage &image) const;
 
     ~SDLRenderer();
 private:

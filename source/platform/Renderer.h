@@ -33,15 +33,12 @@ public:
      *  function on the renderer.
      */
     void render(std::list<std::shared_ptr<Image>> &images,
-                const Camera &camera)
-        const;
+                const Camera &camera) const;
 
     /**
      * Visitee callbacks
      */
-    virtual
-    void draw(const SDLImage &image, const Camera &camera)
-        const = 0;
+    virtual void draw(const SDLImage &image) const = 0;
 };
 
 #endif // __PLATFORM_RENDERER_H_
