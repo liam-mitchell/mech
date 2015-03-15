@@ -24,7 +24,8 @@
 
 #include <memory>
 
-namespace Platform {
+namespace Platform
+{
     /**
      * Call platform-specific setup functions
      */

@@ -33,12 +33,13 @@ public:
      *  function on the renderer.
      */
     void render(std::list<std::shared_ptr<Image>> &images,
-                const Camera &camera) const;
+                const Camera &camera);
 
     /**
      * Visitee callbacks
      */
-    virtual void draw(const SDLImage &image) const = 0;
+    virtual void draw(SDLImage &image) const = 0;
+    virtual void flip() = 0;
 
 protected:
     unsigned int width;

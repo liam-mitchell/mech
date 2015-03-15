@@ -6,6 +6,7 @@
 class StaticCamera : public Camera
 {
 public:
+    StaticCamera(float width, float height);
     virtual void cull(std::list<std::shared_ptr<Image>> &images) const;
     virtual void convertCoordinates(std::list<std::shared_ptr<Image>> &images,
                                     unsigned int width,

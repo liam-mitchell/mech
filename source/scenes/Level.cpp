@@ -10,9 +10,13 @@
 Level::Level(std::shared_ptr<Image> background)
     : input(Platform::createInput())
     , renderer(Platform::createRenderer(1020, 780))
-    , camera()
+    , camera(10.2, 7.8)
 {
-    
+    testimage = Platform::createImage("/home/liam/src/mech/assets/test-image.png");
+    testimage->position.x = 1;
+    testimage->position.y = 1;
+    testimage->size.x = 1;
+    testimage->size.y = 1;
 }
 
 /**
@@ -37,6 +41,8 @@ void Level::render()
     for (auto &e: active) {
         images.splice(images.end(), e->getImages());
     }
+
+    images.push_back(testimage);
 
     renderer->render(images, camera);
 }

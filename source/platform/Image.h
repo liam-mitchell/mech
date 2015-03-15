@@ -18,10 +18,10 @@ class Renderer;
 class Image
 {
 public:
-    virtual void draw(const Renderer &renderer) const = 0;
+    virtual void draw(const Renderer &renderer) = 0;
 
-    virtual void setPixelPosition(unsigned int x, unsigned int y) = 0;
-    virtual void setPixelSize(unsigned int w, unsigned int h) = 0;
+    virtual void setPixelPosition(int x, int y) = 0;
+    virtual void setPixelSize(int w, int h) = 0;
 
 public:
     Vec2 position;

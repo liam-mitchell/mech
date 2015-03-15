@@ -10,7 +10,7 @@ INCLUDE_DIR := $(ROOT_DIR)/include
 RELEASE_BINARY := $(BINARY_DIR)/mech
 DEBUG_BINARY := $(RELEASE_BINARY)-dbg
 
-LIBRARIES := -lSDL2main -lSDL2 -ldl -lpthread
+LIBRARIES := -lSDL2main -lSDL2 -lSDL2_image -ldl -lpthread
 
 SOURCES := $(shell find $(SOURCE_DIR) -name "*.cpp")
 HEADERS := $(abspath $(shell find $(SOURCE_DIR) -name "*.h"))
@@ -28,7 +28,7 @@ DEPENDS := $(ROOT_DIR)/.depends
 
 .PHONY: default debug release clean tags depends
 
-default: release
+default: debug
 
 depends: $(DEPENDS)
 

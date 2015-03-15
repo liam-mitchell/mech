@@ -43,6 +43,8 @@ private:
     std::list<std::shared_ptr<Entity>> dead;
 
     StaticCamera camera;
+
+    std::shared_ptr<Image> testimage;
 };
 
 #endif // __LEVEL_H_

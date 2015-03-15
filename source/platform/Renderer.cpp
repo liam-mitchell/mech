@@ -8,7 +8,7 @@ Renderer::Renderer(unsigned int width, unsigned int height)
 {}
 
 void Renderer::render(std::list<std::shared_ptr<Image>> &images,
-                      const Camera &camera) const
+                      const Camera &camera)
 {
     camera.cull(images);
     camera.convertCoordinates(images, width, height);
@@ -16,4 +16,6 @@ void Renderer::render(std::list<std::shared_ptr<Image>> &images,
     for (auto &image: images) {
         image->draw(*this);
     }
+
+    flip();
 }

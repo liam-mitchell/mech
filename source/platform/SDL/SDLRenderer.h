@@ -23,7 +23,8 @@ public:
      *
      * MUST be implemented for each new type of Image!
      */
-    void draw(const SDLImage &image) const;
+    void draw(SDLImage &image) const;
+    void flip();
 
     ~SDLRenderer();
 private:

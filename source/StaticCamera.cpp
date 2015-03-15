@@ -1,5 +1,10 @@
 #include "StaticCamera.h"
 
+StaticCamera::StaticCamera(float width, float height)
+    : width(width)
+    , height(height)
+{}
+
 void StaticCamera::cull(std::list<std::shared_ptr<Image>> &images) const
 {
 

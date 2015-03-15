@@ -1,4 +1,5 @@
 #include "SDLRenderer.h"
+#include "SDLImage.h"
 
 #include <iostream>
 
@@ -23,7 +24,6 @@ SDLRenderer::SDLRenderer(unsigned int width, unsigned int height)
 
     surface = SDL_GetWindowSurface(window);
     SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0xFF, 0xFF, 0xFF));
-    SDL_UpdateWindowSurface(window);
 
     std::cout << "Created SDL window!\n";
 }
@@ -34,9 +34,29 @@ SDLRenderer::SDLRenderer(unsigned int width, unsigned int height)
  * NOTE: Renderers should only implement the images they can handle (ie.
  *  draw(SDLImage, Camera) for SDLRenderer). Others should simply throw.
  */
-void SDLRenderer::draw(const SDLImage &image) const
+void SDLRenderer::draw(SDLImage &image) const
 {
-    std::cout << "Renderer: Drew SDL image!\n";
+    SDL_Rect src;
+    src.x = 0;
+    src.y = 0;
+    src.w = image.getRect()->w;
+    src.h = image.getRect()->h;
+
+    SDL_Rect dest;
+    dest.x = image.getRect()->x;
+    dest.y = image.getRect()->y;
+    dest.w = 0;
+    dest.h = 0;
+
+    SDL_BlitSurface(image.getSurface(),
+                    &src,
+                    surface,
+                    &dest);
+}
+
+void SDLRenderer::flip()
+{
+    SDL_UpdateWindowSurface(window);
 }
 
 SDLRenderer::~SDLRenderer()
