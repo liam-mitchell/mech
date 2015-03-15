@@ -3,7 +3,7 @@
 
 #include "Scene.h"
 
-#include "../Camera.h"
+#include "../StaticCamera.h"
 #include "Entity.h"
 
 #include "../platform/Platform.h"
@@ -42,7 +42,7 @@ private:
     std::list<std::shared_ptr<Entity>> active;
     std::list<std::shared_ptr<Entity>> dead;
 
-    Camera camera;
+    StaticCamera camera;
 };
 
 #endif // __LEVEL_H_

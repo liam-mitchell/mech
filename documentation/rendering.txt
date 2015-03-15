@@ -1,0 +1,18 @@
+The renderer receives a list of images and a camera from the scene and is
+responsible for rendering them appropriately.
+
+Images contain:
+  - World coordinates
+  - Private image data (ie. SDL_Surface *)
+  - A method for setting pixel position and size
+
+Cameras contain:
+  - Some method for culling images from a list to be rendered
+  - Some method for setting the pixel position and size of an image
+
+On each frame, the renderer will:
+  - Ask the camera to cull images it can't see
+  - Run through its list of images
+  - For each image:
+    - Ask the camera to set the pixel position and size of the image based
+      on the width and height of the renderer's window

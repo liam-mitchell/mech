@@ -8,8 +8,11 @@
 class Camera
 {
 public:
-    void cull(std::list<std::shared_ptr<Image>> &images) const;
-    void convertCoordinates(std::list<std::shared_ptr<Image>> &images) const;
+    virtual void cull(std::list<std::shared_ptr<Image>> &images) const = 0;
+    virtual void convertCoordinates(std::list<std::shared_ptr<Image>> &images,
+                                    unsigned int width,
+                                    unsigned int height) const = 0;
+    virtual void update(unsigned int dt) = 0;
 };
 
 #endif // __CAMERA_H_

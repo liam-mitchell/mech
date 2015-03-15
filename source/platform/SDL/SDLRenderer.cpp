@@ -8,6 +8,7 @@
  * Implements SDLRenderer.h
  */
 SDLRenderer::SDLRenderer(unsigned int width, unsigned int height)
+    : Renderer(width, height)
 {
     window = SDL_CreateWindow(WINDOW_TITLE.c_str(),
                               SDL_WINDOWPOS_UNDEFINED,

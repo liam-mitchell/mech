@@ -23,7 +23,7 @@ protected:
     static const std::string WINDOW_TITLE;
 
 public:
-
+    Renderer(unsigned int width, unsigned int height);
     /**
      * Render a list of images, first culling those not visible to the camera
      *
@@ -39,6 +39,10 @@ public:
      * Visitee callbacks
      */
     virtual void draw(const SDLImage &image) const = 0;
+
+protected:
+    unsigned int width;
+    unsigned int height;
 };
 
 #endif // __PLATFORM_RENDERER_H_

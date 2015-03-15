@@ -13,6 +13,7 @@ DEBUG_BINARY := $(RELEASE_BINARY)-dbg
 LIBRARIES := -lSDL2main -lSDL2 -ldl -lpthread
 
 SOURCES := $(shell find $(SOURCE_DIR) -name "*.cpp")
+HEADERS := $(abspath $(shell find $(SOURCE_DIR) -name "*.h"))
 RELEASE_OBJECTS := $(addprefix $(RELEASE_OBJECT_DIR)/, $(notdir $(SOURCES:.cpp=.o)))
 DEBUG_OBJECTS := $(addprefix $(DEBUG_OBJECT_DIR)/, $(notdir $(SOURCES:.cpp=.o)))
 
@@ -22,29 +23,44 @@ LDFLAGS := -L $(LIBRARY_DIR) $(LIBRARIES)
 
 VPATH := $(shell find $(SOURCE_DIR) -type d)
 
-TAGS := $(SOURCE_DIR)/TAGS
+TAGS := $(ROOT_DIR)/TAGS
+DEPENDS := $(ROOT_DIR)/.depends
 
-.PHONY: default debug release clean tags
+.PHONY: default debug release clean tags depends
 
 default: release
+
+depends: $(DEPENDS)
+
+$(DEPENDS): $(HEADERS)
+	@echo "Regenerating dependencies..."
+	@rm -f $(DEPENDS)
+	@for f in $(SOURCES); \
+	do $(CXX) $(CXXFLAGS) -MM $$f | \
+	sed "s:\(.*\.o\):$(RELEASE_OBJECT_DIR)/\1:g" >> $(DEPENDS); \
+	$(CXX) $(CXXFLAGS) -MM $$f | \
+	sed "s:\(.*\.o\):$(DEBUG_OBJECT_DIR)/\1:g" >> $(DEPENDS); \
+	done
+	@echo "Dependencies generated"
+
+-include $(DEPENDS)
+
+debug: CXXFLAGS += -g -DDEBUG
+debug: dirs $(DEPENDS) $(DEBUG_BINARY)
+
+release: CXXFLAGS += -O2 -DNDEBUG
+release: dirs $(DEPENDS) $(RELEASE_BINARY)
+
+tags: $(TAGS)
 
 clean:
 	rm -rf $(OBJECT_DIR)
 	rm -rf $(BINARY_DIR)
-	rm -rf $(TAGS)
-
-debug: CXXFLAGS += -g
-debug: dirs $(DEBUG_BINARY)
-
-release: CXXFLAGS += -O2 -DNDEBUG
-release: dirs $(RELEASE_BINARY)
 
 dirs:
 	mkdir -p $(DEBUG_OBJECT_DIR)
 	mkdir -p $(RELEASE_OBJECT_DIR)
 	mkdir -p $(BINARY_DIR)
-
-tags: $(TAGS)
 
 $(RELEASE_BINARY): $(RELEASE_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
@@ -59,4 +75,4 @@ $(DEBUG_OBJECT_DIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(TAGS):
-	find $(SOURCE_DIR) -name "*.cpp" -o -name "*.h" | etags -o $(ROOT_DIR)/TAGS -
+	find $(SOURCE_DIR) -name "*.cpp" -o -name "*.h" | etags -o $(TAGS) -
