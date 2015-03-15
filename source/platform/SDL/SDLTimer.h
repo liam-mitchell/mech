@@ -4,14 +4,16 @@
 #include "../Platform.h"
 
 /**
- * SDL timer interface
- *
- * See Platform.h for details
+ * SDL implementation of Timer (see platform/Timer.h)
  */
 class SDLTimer : public Timer
 {
 public:
     SDLTimer();
+
+    /**
+     * Return the number of ticks since last called
+     */
     virtual unsigned int tick();
 private:
     unsigned int last_tick;

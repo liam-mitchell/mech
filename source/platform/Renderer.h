@@ -8,13 +8,8 @@
 /**
  * Platform-agnostic rendering engine
  *
- * Uses the visitor pattern to allow the renderer to call platform-specific
- *  draw() functions. Implementations should only implement the draw() function
- *  for their specific implementation, and throw an exception if they are asked
- *  to draw() a different type of image.
- *
+ * 
  */
-
 class SDLImage;
 
 class Renderer
@@ -25,20 +20,45 @@ protected:
 public:
     Renderer(unsigned int width, unsigned int height);
     /**
-     * Render a list of images, first culling those not visible to the camera
+     * Render a list of images, using a camera to cull images that aren't
+     *  visible and position and scale images appropriately.
      *
-     * Dispatches images to the correct draw image via calling the
-     *  draw(Renderer) method on the image - each image must implement that
-     *  method as Renderer.draw(*this), so as to call the correct draw()
-     *  function on the renderer.
+     * Utilizes double dispatch in order to allow platform-specific subclasses
+     *  access to the specific methods and members within the platform-specific
+     *  Image class. After culling and positioning images, it then loops over
+     *  them, calling image->draw(*this). The images then call back the
+     *  appropriate platform-specific draw(XXXImage &) function.
+     *
+     * Example call sequence for SDLImage:
+     *  - renderer.render()            // Abstract renderer, abstract image
+     *  -> image.draw(Renderer &)      // Concrete image has abstract renderer
+     *  -> renderer.draw(SDLImage &)   // Concrete renderer has conrete image
+     *
+     *
+     * This allows each renderer access to the Image subclass's methods and
+     *  members, allowing (for example) the SDLRenderer to access an SDLImage's
+     *  SDL_Surface and SDL_Rect for drawing.
      */
     void render(std::list<std::shared_ptr<Image>> &images,
                 const Camera &camera);
 
     /**
-     * Visitee callbacks
+     * Double-dispatch callbacks
+     *
+     * Standard implementation for all types of image other than the one which
+     *  matches the type of the renderer (ie. SDLImage for SDLRenderer) is to
+     *  simply throw an exception, since the Platform::createXXX() functions
+     *  should produce the same types for both unless something is terribly
+     *  wrong.
      */
     virtual void draw(SDLImage &image) const = 0;
+
+protected:
+    /**
+     * Swap the front and back buffers
+     *
+     * Called by render() after drawing all images.
+     */
     virtual void flip() = 0;
 
 protected:

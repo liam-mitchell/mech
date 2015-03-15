@@ -5,11 +5,6 @@
 
 /**
  * Platform-agnostic timer inteface
- *
- * Dispatches the tick() function to the correct platform-specific timer.
- *
- * Like most platform-agnostic intefaces, maintains a unique_ptr to the correct
- *  interface implementation based on the platform chosen by platform.
  */
 class Timer
 {

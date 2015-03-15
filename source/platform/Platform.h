@@ -36,7 +36,7 @@ namespace Platform
      */
     std::shared_ptr<Timer> createTimer();
     std::shared_ptr<Renderer> createRenderer(unsigned int width,
-                                          unsigned int height);
+                                             unsigned int height);
     std::shared_ptr<Input> createInput();
     std::shared_ptr<Image> createImage(const std::string &path);
 }

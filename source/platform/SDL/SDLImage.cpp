@@ -4,6 +4,12 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
+/**
+ * Create an SDLImage from a path.
+ * 
+ * NOTE: This needs to be reworked to translate its path somehow
+ *  depending on platform
+ */
 SDLImage::SDLImage(const std::string &path)
 {
     surface = IMG_Load(path.c_str());
@@ -18,9 +24,11 @@ SDLImage::SDLImage(const std::string &path)
     rect.h = surface->h;
 }
 
+/**
+ * Callback for double dispatch to appropriate Renderer.draw() function.
+ */
 void SDLImage::draw(const Renderer &renderer)
 {
-    std::cout << "Image: Drew SDL image!\n";
     renderer.draw(*this);
 }
 
