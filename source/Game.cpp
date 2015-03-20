@@ -6,19 +6,19 @@
 /**
  * Implements Game.h
  */
-Game::Game(std::unique_ptr<Scene> scene)
+Game::Game(std::shared_ptr<Scene> scene)
 {
-    playScene(std::move(scene));
+    playScene(scene);
 }
 
-void Game::playScene(std::unique_ptr<Scene> scene)
+void Game::playScene(std::shared_ptr<Scene> scene)
 {
-    scenes.push_front(std::move(scene));
+    scenes.push_front(scene);
 }
 
-void Game::queueScene(std::unique_ptr<Scene> scene)
+void Game::queueScene(std::shared_ptr<Scene> scene)
 {
-    scenes.push_back(std::move(scene));
+    scenes.push_back(scene);
 }
 
 void Game::endScene()
@@ -38,9 +38,14 @@ void Game::run()
         // and we want to make sure it has a chance to update itself
         // before we try to render it, as well as finish rendering this one
         // before we pause it
-        std::unique_ptr<Scene> &scene = scenes.front();
+        std::shared_ptr<Scene> scene = scenes.front();
 
-        scene->update(dt);
+        scene->update(*this, dt);
         scene->render();
     }
+}
+
+void Game::quit()
+{
+    scenes.clear();
 }

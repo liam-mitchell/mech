@@ -8,7 +8,9 @@ class Input
 public:
     virtual void update() = 0;
 
-    virtual bool jumping() const = 0;
+public:
+    virtual bool jump() = 0;
+    virtual bool quit() = 0;
 };
 
 #endif // __PLATFORM_INPUT_H_

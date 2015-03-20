@@ -1,6 +1,8 @@
 #ifndef __SCENE_H_
 #define __SCENE_H_
 
+class Game;
+
 /**
  * Scene class
  *
@@ -15,7 +17,7 @@
  */
 class Scene {
 public:
-    virtual void update(unsigned int dt) = 0;
+    virtual void update(Game &game, unsigned int dt) = 0;
     virtual void render() = 0;
 };
 

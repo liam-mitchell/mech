@@ -1,15 +1,17 @@
 #ifndef __LEVEL_H_
 #define __LEVEL_H_
 
-#include "Scene.h"
+#include "../Scene.h"
 
-#include "../StaticCamera.h"
+#include "../../cameras/StaticCamera.h"
 #include "Entity.h"
 
-#include "../platform/Platform.h"
+#include "../../platform/Platform.h"
 
 #include <list>
 #include <memory>
+
+class Game;
 
 /**
  * Implementation of the Scene class for a standard playable level
@@ -20,7 +22,7 @@ class Level : public Scene {
 public:
     Level(std::shared_ptr<Image> background);
 
-    void update(unsigned int dt);
+    void update(Game &game, unsigned int dt);
     void render();
 
     void addEntity(std::shared_ptr<Entity> e);
@@ -43,8 +45,6 @@ private:
     std::list<std::shared_ptr<Entity>> dead;
 
     StaticCamera camera;
-
-    std::shared_ptr<Image> testimage;
 };
 
 #endif // __LEVEL_H_

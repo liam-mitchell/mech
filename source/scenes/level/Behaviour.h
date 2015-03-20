@@ -7,14 +7,17 @@ class Level;
 
 class Behaviour {
 public:
+    Behaviour(int priority);
+
     virtual bool execute(Level &level, unsigned int dt) = 0;
     virtual bool operator<(const Behaviour &other) const;
-private:
+protected:
     int priority;
 };
 
 class BehaviourCompare {
-    bool operator()(std::unique_ptr<Behaviour> a, std::unique_ptr<Behaviour> b)
+public:
+    bool operator()(std::shared_ptr<Behaviour> a, std::shared_ptr<Behaviour> b)
     { return a && b && *a < *b; }
 };
 

@@ -1,7 +1,7 @@
 #include "Game.h"
 
 #include "platform/Platform.h"
-#include "scenes/Level.h"
+#include "scenes/level/Level.h"
 
 #include <memory>
 
@@ -11,11 +11,10 @@ int main() {
         return 1;
     }
 
-    std::shared_ptr<Image> background = Platform::createImage("../assets/test-background.png");
-    
-    // The game should probably just take ownership of a raw scene pointer...
-    std::unique_ptr<Scene> scene(new Level(background));
-    Game game(std::move(scene));
+    std::shared_ptr<Image> background(Platform::createImage("../assets/test-background.png"));
+    std::shared_ptr<Scene> scene(new Level(background));
+
+    Game game(scene);
 
     // Run the game until it's done!
     game.run();

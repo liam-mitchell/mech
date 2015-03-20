@@ -1,6 +1,9 @@
 #include "Level.h"
 
-#include "../platform/Platform.h"
+#include "Player.h"
+
+#include "../../platform/Platform.h"
+#include "../../Game.h"
 
 #include <iostream>
 
@@ -12,22 +15,26 @@ Level::Level(std::shared_ptr<Image> background)
     , renderer(Platform::createRenderer(1020, 780))
     , camera(10.2, 7.8)
 {
-    testimage = Platform::createImage("/home/liam/src/mech/assets/test-image.png");
-    testimage->position.x = 1;
-    testimage->position.y = 1;
-    testimage->size.x = 1;
-    testimage->size.y = 1;
+    std::shared_ptr<Player> player(new Player(
+        Platform::createImage("/home/liam/src/mech/assets/test-image.png"),
+        Platform::createInput()));
+
+    born.push_back(player);
 }
 
 /**
  * Step the level forward by dt milliseconds
  */
-void Level::update(unsigned int dt)
+void Level::update(Game &game, unsigned int dt)
 {
     updateInput();
     updateBehaviours(dt);
     updatePhysics(dt);
     updateEntities();
+
+    if (input->quit()) {
+        game.quit();
+    }
 }
 
 /**
@@ -41,8 +48,6 @@ void Level::render()
     for (auto &e: active) {
         images.splice(images.end(), e->getImages());
     }
-
-    images.push_back(testimage);
 
     renderer->render(images, camera);
 }

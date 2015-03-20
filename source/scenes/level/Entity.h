@@ -3,7 +3,7 @@
 
 #include "Behaviour.h"
 
-#include "../platform/Platform.h"
+#include "../../platform/Platform.h"
 
 #include <list>
 #include <memory>
@@ -19,8 +19,8 @@ public:
     virtual std::list<std::shared_ptr<Image>> getImages() = 0;
 
     virtual void updateBehaviours(Level &level, unsigned int dt);
-private:
-    std::set<std::unique_ptr<Behaviour>, BehaviourCompare> behaviours;
+protected:
+    std::set<std::shared_ptr<Behaviour>, BehaviourCompare> behaviours;
 };
 
 #endif // __ENTITY_H_

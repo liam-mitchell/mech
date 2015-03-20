@@ -1,7 +1,7 @@
 #ifndef __CAMERA_H_
 #define __CAMERA_H_
 
-#include "platform/Platform.h"
+#include "../platform/Platform.h"
 
 #include <list>
 

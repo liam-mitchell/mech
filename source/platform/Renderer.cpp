@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-#include "../Camera.h"
+#include "../cameras/Camera.h"
 
 Renderer::Renderer(unsigned int width, unsigned int height)
     : width(width)
